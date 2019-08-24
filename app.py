@@ -1,355 +1,320 @@
-# - [Narrator] Hi, and welcome back to the course.
+# - [Instructor] Hi and welcome back to the course.
 
-# Remember our simple Flask application?
+# I'm really excited to get started with
 
-# Now, we're going to extend that to show the endpoints
+# creating this REST API.
 
-# that we looked at in the very last presentation.
+# In order to create the REST API, we're gonna have
 
-# We're going to simulate an online store using Flask.
+# to go though a couple of steps.
 
-# There were a couple of things that we discussed.
+# Remember we've got a list of stores
 
-# Net post was used to receive data,
+# and we're starting this list with a single store in it
 
-# and the get was used to, essentially, send data back only.
+# and that's for a specific reason.
 
-# Remember, from the browser's perspective,
+# Creating a store is slightly more complicated
 
-# this is the opposite.
+# than retrieving a store.
 
-# The browser will use post to send us data.
+# So, what we're gonna do is we're gonna start
 
-# And it will use get to receive data.
+# with retrieving all our stores
 
-# But here, we are not a browser, we are a server.
+# and that's gonna be the first endpoint we're going
 
-# So, when we receive a post request,
+# to implement and that we're gonna test here in this video.
 
-# that means we are receiving some data,
+# Then, we're gonna move on to the others.
 
-# and therefore we have to deal with it.
+# The first thing we have to do is to understand one thing,
 
-# And when we receive a get request,
+# which is what JSON is.
 
-# that means that we have to send data back.
+# Now, for those of you that are more experienced,
 
-# For example, when we receive post store,
+# I'm sure you already know what JSON is,
 
-# and that means that we have to probably create a store.
+# but I'll just quickly explain it.
 
-# We may receive get store, and that means
+# JSON is, essentially, a dictionary.
 
-# we have to send back a list of stores.
+# Something like this.
 
-# So, the endpoints that we're gonna create
+# So, JSON is a set of key value pairs,
 
-# are post for store, and this is,
+# just like a dictionary is and it's really useful
 
-# the data that we're gonna receive is a name.
+# to send data from one application to another.
 
-# We're gonna create get of store,
+# For example, our Javascript application might request a list
 
-# slash string name.
+# of stores and they come back as a JSON
 
-# Get for stores, we're gonna create post
+# and then we can sort of look at each dictionary
 
-# for a store string, oh, apologies,
+# and retrieve some data from it, just like we do in Python.
 
-# string name item.
+# So, JSON is really useful
 
-# And also get for store string name item.
+# to send data between applications
 
-# So, what these endpoints are gonna do
+# and it looks pretty much just exactly like this.
 
-# is, the first one is gonna create a new store
+# However, JSON is not a dictionary.
 
-# with a given name.
+# JSON is text.
 
-# The second one is going to get a store for a given name,
+# It is a long string.
 
-# and it's gonna return some data about it.
+# So, our application has to return a string
 
-# The third one is going to return a list of all the stores.
+# in this format.
 
-# The fourth one is going to create an item
+# And then Javascript has to read that and deal with it,
 
-# inside a specific store, with a given name.
+# as a string, maybe convert it
 
-# And the last one is gonna get all the items
+# to a Javascript, sort of, dictionary, between quotes,
 
-# in a specific store.
+# and then deal with it like that.
 
-# This one will also have a name and a price, for example.
+# So, there has to be some sort of conversion
 
-# OK.
+# between a dictionary, which is a Python thing,
 
-# So, I'll create an example of a post request
+# and a string, which is something
 
-# and a get request for you,
+# that we can send over the internet.
 
-# and then we, I'll expect you to create the rest.
+# So, we cannot send a Python dictionary to Javascript,
 
-# So, for the first port request.
+# because Javascript wouldn't understand it,
 
-# Well, we know how to create an endpoint.
+# but Javascript does understand what text is
 
-# It is @app.root, and here, before we put a forward slash,
+# and it can do its own conversion there.
 
-# that was the root of our application, the home page,
+# Fortunately, Flask really helps us out here
 
-# now we wanna put it as slash store,
+# with a method called jsonify, which takes in a dictionary
 
-# because that is what this endpoint is.
+# and converts it JSON, which is a string in this format.
 
-# Therefore, our browser, or our web application,
+# All we have to do is go to the very top of our file
 
-# or our m, whoever is really calling our API
+# and say from flask import flask, jsonify.
 
-# is going to call this endpoint.
+# And that is a method that we're gonna need.
 
-# However, it has to be a post.
+# Notice how it's lower-case, because it's not a class.
 
-# By default, when you use app.route,
+# It is a method.
 
-# that is a get request.
+# So, let's go down into our stores.
 
-# And browsers, by default, only do get requests.
+# This get_stores method that is going
 
-# So, we're gonna need to say comma methods equal post.
+# to return all our stores.
 
-# So, this defines our route as being slash store,
+# And what we're going to do is
 
-# and as being accessible only via a post request.
+# we're gonna say return jsonify(stores).
 
-# If we want it to be accessible via a get request, as well,
+# Remember, what this is gonna do is it's going
 
-# then we could do post and get.
+# to convert the stores variable into JSON.
 
-# So then, this endpoint could be called
+# There is one last small problem,
 
-# either via post or via get.
+# which is that JSON is a dictionary
 
-# We will look at how that works later on in the course.
+# and our stores variable is not a dictionary.
 
-# Then, we have to associate a method with it.
+# It is a list.
 
-# And in this case, I'm gonna call the method create store.
+# JSON cannot be a list.
 
-# And it's not going to do anything for now,
+# But we wanna return not a single store,
 
-# but we will make it do stuff later on.
+# but a dictionary with all our stores.
 
-# To get the store, well, fairy simple.
+# So, what we do is we say jsonify
 
-# I'm sure you can do it yourself.
+# and we make this into a dictionary.
 
-# So, if you think you can, pause the video now
+# Stores is stores, like that.
 
-# and give it a go.
+# So this is now our dictionary, which has one key only,
 
-# And if not, just keep watching and I will implement it here.
+# which is stores and that key has a value associated with it,
 
-# To get a store, we'll have app.route slash store,
+# which is our list of stores.
 
-# slash string name.
+# This is our variable that we declared up there.
 
-# This is a special Flask bit of syntax,
+# And that's all in our dictionary, so we jsonify that
 
-# which means that when we get store,
+# and we return that to the person making the request.
 
-# when we create our method,
+# So, let's save the app.py.
 
-# our method can have a parameter, which is name.
+# Let's go over to our terminal.
 
-# This name here has to match this one here.
+# Make sure that we're in the right place.
 
-# And therefore, when we receive a request
+# So, in my case, the folder is up here.
 
-# such as an http://107.0.0.1/5000/store/some_name,
+# /user/jslvtr/code/section3/video_code
 
-# some name is going to be this name here.
+# So, let's go there.
 
-# So, the name variable will contain some name.
+# And then let's do python3.5 app.py.
 
-# If we have a store that has that name,
+# So now notice we are running.
 
-# we're gonna be able to return it, using that as a key.
+# Copy that.
 
-# OK.
+# Go over to your browser of choice.
 
-# So, this is also going to pass.
+# Paste it in and make sure to say /store.
 
-# And then, you know, this is just going to apply
+# So, what do you think is gonna happen, when we press enter?
 
-# for, really, the rest of them.
+# What are we going to see on our page?
 
-# And this one is only store, so it doesn't
+# Try to create a mental image as to what's gonna come out.
 
-# need the string name.
+# So, this is what we see.
 
-# And also, it's not gonna have a parameter.
+# A JSON representation of our stores.
 
-# For the post, we're going to copy this one here,
+# Remember, we've got a dictionary with one key called stores
 
-# and it's gonna have string name slash item.
+# and that is a list.
 
-# Make sure to not forget any of these little bit
+# This is our variable.
 
-# of syntax there, because that can be quite confusing
+# And that list has one element in it, one dictionary,
 
-# for Flask if you do that.
+# and that has a name down here and a list of items.
 
-# And finally, we're going to have something like this,
+# Remember dictionaries are not ordered,
 
-# down here.
+# because they are sets.
 
-# Remember to change the method names, as well,
+# So, the items in this case has appeared first,
 
-# because they have to be unique.
+# even though in our code, the name is first.
 
-# So, I'm gonna call this method get item store,
+# So this is what a REST API really, really does.
 
-# because that's essentially what this is going to do.
+# It returns JSON, after doing some processing.
 
-# This is going to retrieve all the items
+# So, for example, the REST API we're developing will allow us
 
-# in a specific store.
+# to create stores, create items, and return them,
 
-# For this one, it's going to be create item in store.
+# and things like that.
 
-# For this one, it is gonna get stores,
+# It would, for example, be very useful for a mobile app
 
-# and this one is gonna be get store.
+# that has been created to represent a store.
 
-# This one is gonna be create store.
+# The mobile app could call our API and store stores
 
-# So, these are our endpoints.
+# and items, so that the mobile app can then retrieve them
 
-# So, we've got our five endpoints now,
+# and so on.
 
-# as we discussed in the last presentation.
+# So, what we've got here is something very specific,
 
-# And all we have to do now is really implement them.
+# which is the list of stores that we started our programme with
 
-# So, how do we implement them?
+# and also they're in JSON format and we can tell that they're
 
-# Well, we, first of all, need a way to store our stores.
+# in JSON format, as opposed to a Python dictionary,
 
-# So, that can be, for example, something like a list.
+# because of the double quotes.
 
-# And our stores can be an empty list initially,
+# JSON always uses double quotes and never single quotes.
 
-# and then it can have a dictionary in it,
+# That's a very important thing in JSON, so remember that.
 
-# and the dictionary is gonna have a name,
+# Always double quotes, never single quotes.
 
-# and the name's gonna be, for example,
+# And it always has to start with a dictionary,
 
-# My Wonderful Store.
+# so you cannot return a list only.
 
-# And there's also gonna have a list of items,
+# So, that's everything for this video.
 
-# and each item is going to have a name,
+# We've implemented our first endpoint and,
 
-# such as My Item and a price, such as 15.99.
+# in the next video, we're gonna implement the rest
 
-# OK.
+# and that's gonna include creating the stores and the items.
 
-# So, hopefully this makes sense.
+# It's not gonna be too challenging, so you can give it a go
 
-# I'm just gonna clean this up a bit for you,
+# if you want and, if not, then I'll see you
 
-# so it's a bit easier to understand or to know.
+# in the very next video.
 
-# OK.
 
-# So, our store's list is going to contain a list
+# --------------------------------------
 
-# of dictionaries.
 
-# So, here we've got one dictionary, but we could have many.
+# Fortunately, Flask really helps us out here
 
-# Each dictionary has a name, such as our stores do,
+# with a method called jsonify, which takes in a dictionary
 
-# and the name, in this case, is My Wonderful Store.
+# and converts it JSON, which is a string in this format.
+from flask import Flask, jsonify
 
-# And it also has a list of items.
-
-# And in this case, items is a list.
-
-# So, we can have many other dictionaries in here,
-
-# and each dictionary is going to have a name
-
-# and a price.
-
-# We could do this with object oriented programming,
-
-# if we wanted, and we're gonna explore
-
-# how to do that later on, of course.
-
-# And also, normally, we would be storing these things
-
-# to a database, but in order to simplify things
-
-# and just teach you the basics of RS API,
-
-# we're gonna stick to having a dictionary here, in memory.
-
-# So, hopefully that's all right.
-
-# And in the next video, we're going to look
-
-# into implementing these endpoints.
-
-# So, I'll see you there.
-
-
-
-from flask import Flask
 app = Flask(__name__)
 
 stores = [
-  {
-    'name':'My wonderfull store',
-    'items':[
-      {
-        'item': 'my item',
-        'price':15.99
-      }
-    ]
-  }
-  ]
+    {
+        'name': 'My wonderfull store',
+        'items': [
+            {
+                'item': 'my item',
+                'price': 15.99
+            }
+        ]
+    }
+]
 
 # POST - used to receive data
 # GET  - used to send data back only
 
 
 # POST /store data: {name:}
-@app.route('/store',methods=['POST'])
+@app.route('/store', methods=['POST'])
 def create_store():
-  pass
+    pass
 
 # get /store/<string:name>
-@app.route('/store/<string:name>') # https://127.0.0.1:5000/store/some_name
+@app.route('/store/<string:name>')  # https://127.0.0.1:5000/store/some_name
 def get_store(name):
-  pass
+    pass
 
 # get /store
-@app.route('/store') 
-def get_stores(name):
-  pass
+@app.route('/store')
+def get_stores():
+    return jsonify({'stores': stores})
 
 # post /store/<string:name>/item {name:,price:}
-@app.route('/store',methods=['POST'])
+@app.route('/store', methods=['POST'])
 def create_item_in_store():
-  pass
+    pass
 
 # get /store/<string:name>/item
-@app.route('/store/<string:name>/item') 
+@app.route('/store/<string:name>/item')
 def get_items_in_store(name):
-  pass
+    pass
+
 
 app.run(port=5000)
