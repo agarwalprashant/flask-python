@@ -2257,6 +2257,320 @@ I'll see you in the next video, with some JavaScript.
 
 64
 
+- [Jose] Hi, and welcome back to the course.
+
+In this video, we're quickly going to go over
+
+how you might call the API from within Javascript.
+
+In the Resources section for this lecture
+
+you've got an HTML file that you can download.
+
+That should be somewhere at the top left
+
+of your video player.
+
+All I want you to do is download that HTML file,
+
+create a templates folder, and put the HTML file in it.
+
+It's very important that your folder
+
+is called templates, because that's what
+
+Flask is going to look for.
+
+The HTML file looks like this,
+
+and all it really does is call the API endpoint.
+
+So we've got a HTML code,
+
+which looks like these opening and closing tags.
+
+This is an opening tag,
+
+and this is a closing tag,
+
+with the forward slash in front.
+
+It's got a head tag, and a body tag.
+
+The body is what we show our users,
+
+and the head has some scripts and things
+
+that we want to run,
+
+but we don't want to show our users.
+
+In the head, we put a JavaScript script,
+
+and there is a function.
+
+This function calls a URL using a GET request,
+
+and then when it's done, it calls something else
+
+that we define.
+
+This is not a JavaScript course,
+
+so apologies for the lack of detail in this,
+
+but I just wanted to show you
+
+that you can call your API from JavaScript,
+
+and that it's really useful for web APIs,
+
+for web applications, and things like that.
+
+And also, now that we're here,
+
+I'll also show you how you can render HTML code
+
+from within your Flask application.
+
+That's not something that you would want to do
+
+from a REST API.
+
+But it's something that you do want to do
+
+if you want to create a Flask web application,
+
+as opposed to a web API.
+
+The first thing we have to do,
+
+is to go to Flask and import 'render_template',
+
+as well as the other things.
+
+And then we're going to create another endpoint,
+
+such as the 'home', that is going to return
+
+a render_template of 'index.html'.
+
+Flask automatically looks into the templates folder,
+
+so this index.html is going to be this file here.
+
+Okay, so when we render the template,
+
+all we're going to see is the words 'Hello, world!',
+
+because they are inside this div.
+
+And a div is just an HTML element
+
+that contains other elements.
+
+In this case, it contains some text.
+
+Although this JavaScript function is defined,
+
+it's never going to run,
+
+because we're not actually running it.
+
+The same way as in Python,
+
+defining a function doesn't run it,
+
+in JavaScript defining a function
+
+doesn't run it either.
+
+So what we're going to do is,
+
+we're going to run this app,
+
+and we're going to go to the root of the app,
+
+and we're going to see the words,
+
+'Hello, world!', come out.
+
+So let's go over to our terminal,
+
+and do 'python3.5 app.py'.
+
+Remember, you have to be in the correct folder to do this.
+
+And then your app will start running.
+
+So copy that, go over to Google Chrome,
+
+paste it in here,
+
+and what we get is 'Hello, world!'.
+
+Remember, we're accessing the root endpoint,
+
+but we can still access the store endpoint
+
+if we want, and it still returns our json code.
+
+What we're returning here is the JavaScript
+
+and HTML code.
+
+However, remember we've not called
+
+the Javascript function which creates the GET request,
+
+so that's something that we should do.
+
+So let's do that now.
+
+Below the function, say 'httpGetAsync',
+
+and then the URL that we want to call,
+
+and finally a callback function.
+
+So a function that is going to get executed
+
+once the request is successful.
+
+This is very similar to passing functions
+
+to functions in Python.
+
+So what we're going to do here
+
+is this.
+
+The function callback also receives
+
+the response content.
+
+So that will be some JSON string.
+
+And what we're going to do in this function,
+
+is we're just going to throw an alert
+
+with the response.
+
+Okay, let's go over to the terminal,
+
+stop this using Control + C and restart it,
+
+and then go over to Chrome and refresh the page.
+
+What do you think is going to happen?
+
+We get our alert.
+
+And this alert contains the JSON content,
+
+essentially the string with this data here.
+
+There are many other thing we could do
+
+from JavaScript at this point.
+
+We could, for example, go more in depth,
+
+and create an element for each store.
+
+Maybe have a list of the items that it contains.
+
+We could do more interactive things,
+
+like be able to click on a store
+
+to retrieve the items, and so on.
+
+There's loads of things that we could do.
+
+But the key point here
+
+is that I wanted to show you how
+
+JavaScript and the API work together.
+
+JavaScript always has to call your API
+
+using some code like this.
+
+In other cases you can use, for example,
+
+AngularJS, or you can use jQuery.
+
+There's a bunch of JavaScript libraries
+
+that can do this for you.
+
+But JavaScript is always running on the browser,
+
+and it has to call your API to retrieve data from it,
+
+so that it can then show it on the website.
+
+So Python doesn't really know about the website
+
+in the same way that JavaScript
+
+doesn't know about the Python code.
+
+But they talk to each other via our API,
+
+by passing JSON code.
+
+Again, this is not a JavaScript course,
+
+so for more information I'd advise you go to
+
+a JavaScript web application development course.
+
+I have one of those,
+
+but there are also many others in Udemy,
+
+and elsewhere in the internet,
+
+that talk about this stuff.
+
+This was a simple tutorial on how
+
+the JavaScript and Python code interact,
+
+but there are many other things
+
+that you can do with JavaScript,
+
+so don't feel limited to displaying alerts.
+
+There's many, many more things you can do.
+
+And indeed the point of JavaScript
+
+is to make websites more dynamic.
+
+So that's it for this video.
+
+And we've not tested the API, really.
+
+We've only shown you how it works,
+
+and in the next video we're going to actually
+
+test the API properly and professionally,
+
+using an API testing tool.
+
+So I'll see you there.
+
+65
+
+
+
 
 
 
