@@ -1,266 +1,424 @@
 # - [Instructor] Hi and welcome back to the course.
 
-# I'm really excited to get started with
+# In this video we're going to be creating new stores,
 
-# creating this REST API.
+# using our API.
 
-# In order to create the REST API, we're gonna have
+# However, we're not going to be able to test
 
-# to go though a couple of steps.
+# the creation of stores,
 
-# Remember we've got a list of stores
+# using our JavaScript application,
 
-# and we're starting this list with a single store in it
+# because, that gets slightly more complicated,
 
-# and that's for a specific reason.
+# and this is not a JavaScript course.
 
-# Creating a store is slightly more complicated
+# However,
 
-# than retrieving a store.
+# there is another way of testing the API
 
-# So, what we're gonna do is we're gonna start
+# and we are gonna do that
 
-# with retrieving all our stores
+# the right way really.
 
-# and that's gonna be the first endpoint we're going
+# We normally wouldn't test the API
 
-# to implement and that we're gonna test here in this video.
+# using JavaScript,
 
-# Then, we're gonna move on to the others.
+# we would test it using a specific API testing tool,
 
-# The first thing we have to do is to understand one thing,
+# but we will still look at using the API
 
-# which is what JSON is.
+# from within JavaScript
 
-# Now, for those of you that are more experienced,
+# and then we will look at testing the API afterwards.
 
-# I'm sure you already know what JSON is,
+# Anyway, for this video,
 
-# but I'll just quickly explain it.
+# we're going to create a new store.
 
-# JSON is, essentially, a dictionary.
+# And the first thing we have to do,
 
-# Something like this.
+# is to be able to access the data that is coming back
 
-# So, JSON is a set of key value pairs,
+# to us from the request.
 
-# just like a dictionary is and it's really useful
+# So the browser,
 
-# to send data from one application to another.
+# or the API testing tool,
 
-# For example, our Javascript application might request a list
+# is gonna send us some data,
 
-# of stores and they come back as a JSON
+# the name of the store,
 
-# and then we can sort of look at each dictionary
+# and we have to be able to access that data.
 
-# and retrieve some data from it, just like we do in Python.
+# So the first thing we have to do
 
-# So, JSON is really useful
+# is go up to our first line of code,
 
-# to send data between applications
+# and we're going to import something else.
 
-# and it looks pretty much just exactly like this.
+# We're gonna import flask,
 
-# However, JSON is not a dictionary.
+# JSONify,
 
-# JSON is text.
+# and also request.
 
-# It is a long string.
+# Request without an s at the end.
 
-# So, our application has to return a string
+# There's also a thing called requests.
 
-# in this format.
+# And that's a different package.
 
-# And then Javascript has to read that and deal with it,
+# So from flask we want to import request.
 
-# as a string, maybe convert it
+# And then in the create store,
 
-# to a Javascript, sort of, dictionary, between quotes,
+# what we wanna do is say
 
-# and then deal with it like that.
+# request data is equal to request dot get JSON.
 
-# So, there has to be some sort of conversion
+# This request is the request that was made
 
-# between a dictionary, which is a Python thing,
+# to this endpoint.
 
-# and a string, which is something
+# So when the browser sends us the request
 
-# that we can send over the internet.
+# to create a new store,
 
-# So, we cannot send a Python dictionary to Javascript,
+# this request is that one.
 
-# because Javascript wouldn't understand it,
+# And the browser will also send us some
 
-# but Javascript does understand what text is
+# JSON data.
 
-# and it can do its own conversion there.
+# Which is the name of the store.
 
-# Fortunately, Flask really helps us out here
+# So this is going to allow us to get that data back.
 
-# with a method called jsonify, which takes in a dictionary
+# Then we're gonna create a new store,
 
-# and converts it JSON, which is a string in this format.
+# which is gonna be a dictionary
 
-# All we have to do is go to the very top of our file
+# with a name,
 
-# and say from flask import flask, jsonify.
+# where the name is request data name,
 
-# And that is a method that we're gonna need.
+# because that's gonna be the JSON.
 
-# Notice how it's lower-case, because it's not a class.
+# When we do get JSON,
 
-# It is a method.
+# and this method already converts the JSON string
 
-# So, let's go down into our stores.
+# into a python dictionary,
 
-# This get_stores method that is going
+# so we can access it like that.
 
-# to return all our stores.
+# And also it's going to have a set of items
 
-# And what we're going to do is
+# which is going to be an empty list.
 
-# we're gonna say return jsonify(stores).
+# We're then going to do stores that dot append,
 
-# Remember, what this is gonna do is it's going
+# and append our new store.
 
-# to convert the stores variable into JSON.
+# And finally we're going to return
 
-# There is one last small problem,
+# the new store that we've created.
 
-# which is that JSON is a dictionary
+# Just so the browser can understand that we
 
-# and our stores variable is not a dictionary.
+# have indeed created this store.
 
-# It is a list.
+# So how would we return the new store.
 
-# JSON cannot be a list.
+# I'm sure you got it.
 
-# But we wanna return not a single store,
+# Return, JSONify,
 
-# but a dictionary with all our stores.
+# of new store.
 
-# So, what we do is we say jsonify
+# It's important to include JSONify,
 
-# and we make this into a dictionary.
+# because if not,
 
-# Stores is stores, like that.
+# we will try to return a dictionary
 
-# So this is now our dictionary, which has one key only,
+# and that will fail because we have to return a string.
 
-# which is stores and that key has a value associated with it,
+# Okay, so this is how we would create a new store.
 
-# which is our list of stores.
+# And as I said,
 
-# This is our variable that we declared up there.
+# over the next few videos we're going to be testing
 
-# And that's all in our dictionary, so we jsonify that
+# this out with JavaScript,
 
-# and we return that to the person making the request.
+# but we will not be able to test the
 
-# So, let's save the app.py.
+# creation of stores with JavaScript,
 
-# Let's go over to our terminal.
+# that gets too complicated,
 
-# Make sure that we're in the right place.
+# so we're going to test it with a different tool,
 
-# So, in my case, the folder is up here.
+# and that tool is what we use
 
-# /user/jslvtr/code/section3/video_code
+# professionally very very often.
 
-# So, let's go there.
+# So it's good for you to learn that as well.
 
-# And then let's do python3.5 app.py.
+# To retrieve a specific store,
 
-# So now notice we are running.
+# well, all we wanna do is go over the stores,
 
-# Copy that.
+# finding the one that matches this name,
 
-# Go over to your browser of choice.
+# and return that one.
 
-# Paste it in and make sure to say /store.
+# So I will write a wee comment here,
 
-# So, what do you think is gonna happen, when we press enter?
+# iterate over stores,
 
-# What are we going to see on our page?
+# if the store name matches,
 
-# Try to create a mental image as to what's gonna come out.
+# return that one.
 
-# So, this is what we see.
+# If none matches, return an error message.
 
-# A JSON representation of our stores.
+# And I think you can pause the video at this point
 
-# Remember, we've got a dictionary with one key called stores
+# and give this a go.
 
-# and that is a list.
+# Because you know how to iterate,
 
-# This is our variable.
+# you know how to check using an if statement,
 
-# And that list has one element in it, one dictionary,
+# and you know how to return a store.
 
-# and that has a name down here and a list of items.
+# So go ahead and do that,
 
-# Remember dictionaries are not ordered,
+# I would definitely recommend that you try that now.
 
-# because they are sets.
+# Hopefully you gave it a go,
 
-# So, the items in this case has appeared first,
+# and what I would do is to iterate over stores,
 
-# even though in our code, the name is first.
+# for store in stores, stores remember is our variable,
 
-# So this is what a REST API really, really does.
+# and then I would say,
 
-# It returns JSON, after doing some processing.
+# if the store name is equal to name,
 
-# So, for example, the REST API we're developing will allow us
+# which is the one that we're receiving here,
 
-# to create stores, create items, and return them,
+# then return the store,
 
-# and things like that.
+# return JSONify of store.
 
-# It would, for example, be very useful for a mobile app
+# Remember, store is a dictionary,
 
-# that has been created to represent a store.
+# so we can just return that store directly,
 
-# The mobile app could call our API and store stores
+# and if no store matches,
 
-# and items, so that the mobile app can then retrieve them
+# we want to return some sort of error message,
 
-# and so on.
+# such as message, store not found.
 
-# So, what we've got here is something very specific,
+# That's just to tell whoever's calling the API,
 
-# which is the list of stores that we started our programme with
+# that there was indeed some sort of error.
 
-# and also they're in JSON format and we can tell that they're
+# Okay, now you can do the same thing
 
-# in JSON format, as opposed to a Python dictionary,
+# for the get store slash name slash item.
 
-# because of the double quotes.
+# I'm sure you can go ahead and implement this now
 
-# JSON always uses double quotes and never single quotes.
+# yourself, now that you know how the other one works.
 
-# That's a very important thing in JSON, so remember that.
+# Hopefully you managed,
 
-# Always double quotes, never single quotes.
+# the way I would do it is actually very similar,
 
-# And it always has to start with a dictionary,
+# for store in stores, if the stores name matches,
 
-# so you cannot return a list only.
+# then we're going to return the items in that store,
 
-# So, that's everything for this video.
+# so we're going to return a JSONify of items.
 
-# We've implemented our first endpoint and,
+# Where that's the stores items.
 
-# in the next video, we're gonna implement the rest
+# And also if we don't find anything,
 
-# and that's gonna include creating the stores and the items.
+# we're going to return the appropriate error message.
 
-# It's not gonna be too challenging, so you can give it a go
+# Like so.
 
-# if you want and, if not, then I'll see you
+# Finally, the most challenging in point,
 
-# in the very next video.
+# is the create item.
+
+# I'm sure that you can do this as well.
+
+# If you give it a bit of thought
+
+# and you look at how we've created a store above,
+
+# in a create store method,
+
+# you can do a very similar thing
+
+# to create an item.
+
+# Once again I would recommend pausing the video
+
+# and giving this a go.
+
+# But then I always recommend that,
+
+# so you may be ignoring this recommendation by now,
+
+# hopefully not.
+
+# So pause the video and give it a go
+
+# and then we'll do it here.
+
+# Hopefully you were successful,
+
+# and what I would do is,
+
+# once again,
+
+# for store in stores,
+
+# if the store name matches our name,
+
+# then we're going to create a new item,
+
+# that item is going to be one with a name
+
+# which is going to be the request data name,
+
+# and with a price which is going to be the request.
+
+# Oh, sorry,
+
+# price like that, and request data.
+
+# Price.
+
+# Naturally, you may have already realised the request data
+
+# doesn't exist in this method,
+
+# so we have to create it.
+
+# Request data,
+
+# equal request dot get JSON.
+
+# Like so.
+
+# So this is our new item there,
+
+# and what we wanna do is append it,
+
+# so store, items, dot append new item.
+
+# And then at the end,
+
+# new item,
+
+# at the end we can return a JSONify,
+
+# of the store,
+
+# or if you prefer, you can return JSONify
+
+# if new item that may be also an option.
+
+# It's totally up to you what you want to return
+
+# or up to your API rather.
+
+# Also at the end,
+
+# we wanna return an error message,
+
+# if we didn't find the store.
+
+# Something to keep in mind
+
+# is that if we return an item here,
+
+# that terminates the method
+
+# and we don't return this message.
+
+# We will only return this message
+
+# if we go through every store,
+
+# and we never return anything.
+
+# So if we start on our first store,
+
+# and the name does not match,
+
+# we will just skip all of this code,
+
+# and we will move onto the next store.
+
+# And if the name doesn't match,
+
+# we will skip all of that code
+
+# and we will go on to the next one,
+
+# and eventually if none of them match,
+
+# we will never have ran this code here,
+
+# so we will just exit the loop,
+
+# and return this error message at the end.
+
+# Okay.
+
+# Perfect.
+
+# So these are our end points,
+
+# now in the next video,
+
+# I've got an HTML file for you to download,
+
+# that has some boiler plate code,
+
+# and then we're gonna use that
+
+# to kinda test this out a bit and
+
+# look at how you can run
+
+# some JavaScript code in this API,
+
+# and after that we're going to,
+
+# properly test this API using a professional tool.
+
+# Which is free as well.
+
+# So don't worry about paying anything.
+
+# So without further ado,
+
+# I'll see you in the next video, with some JavaScript.
 
 
 # --------------------------------------
@@ -271,7 +429,7 @@
 # with a method called jsonify, which takes in a dictionary
 
 # and converts it JSON, which is a string in this format.
-from flask import Flask, jsonify
+from flask import Flask, jsonify,request
 
 app = Flask(__name__)
 
@@ -294,12 +452,25 @@ stores = [
 # POST /store data: {name:}
 @app.route('/store', methods=['POST'])
 def create_store():
-    pass
+    request_data = request.get_json()
+    new_store = {
+      'name':request_data['name'],
+      'items':[]
+    }
+    stores.append(new_store)
+    return jsonify(new_store)
 
-# get /store/<string:name>
+#get a specific store by name
+# get /store/<string:name>  
 @app.route('/store/<string:name>')  # https://127.0.0.1:5000/store/some_name
 def get_store(name):
-    pass
+    # iterate over stores
+    # if the store name matches,return it
+    # if none match , return an error message
+    for store in stores:
+      if store['name'] == name
+        return jsonify(store)
+    return jsonify({'message':'store not found'})
 
 # get /store
 @app.route('/store')
@@ -308,13 +479,27 @@ def get_stores():
 
 # post /store/<string:name>/item {name:,price:}
 @app.route('/store', methods=['POST'])
-def create_item_in_store():
-    pass
+def create_item_in_store(name):
+    request_data = request.get_json()
+    
+    for store in stores:
+      if store['name'] == name
+        new_item = {
+            'name':request_data['name']
+            'price':request_data['price']
+        }
+        store['items'].append(new_item)
+        # totally up to you what you want to return in the next line
+        return jsonify(new_item)
+    return jsonify({'message':'store not found'})
 
 # get /store/<string:name>/item
 @app.route('/store/<string:name>/item')
 def get_items_in_store(name):
-    pass
+  for store in stores:
+    if store['name'] == name
+      return jsonify({'items':store['items']}) 
+  return jsonify({'message':'store not found'})
 
 
 app.run(port=5000)
