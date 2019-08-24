@@ -53,7 +53,7 @@ def get_stores():
     return jsonify({'stores': stores})
 
 # post /store/<string:name>/item {name:,price:}
-@app.route('/store', methods=['POST'])
+@app.route('/store/<string:name>/item', methods=['POST'])
 def create_item_in_store(name):
     request_data = request.get_json()
 
@@ -77,4 +77,4 @@ def get_items_in_store(name):
     return jsonify({'message': 'store not found'})
 
 
-app.run(port=5000)
+app.run(port=5000, debug=True)

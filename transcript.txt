@@ -2569,13 +2569,478 @@ So I'll see you there.
 
 65
 
+- [Instructor] Hi and welcome back.
 
+In this video we're going to be getting a professional tool
 
+for API testing that's really awesome.
 
+It's called Postman and you can
 
+get it the getpostman.com/apps.
 
+When you get to the website, you will see
 
+something more or less like this.
 
+I see a Main button here which is download Postman for Mac,
 
+but I'm assuming that if you're on Windows
 
+you'll see download Postman for Windows.
 
+So just download Postman for your appropriate platform
+
+such as Windows, Linux or Mac and instal it
+
+like any other normal application and then we can run it.
+
+If you prefer, you can run Postman from within Chrome
+
+as an add-on, you can do that as well
+
+if that's what you like doing instead.
+
+Once you've downloaded it and run it
+
+you will see something that looks like this.
+
+It'll be slightly different because I've already
+
+got some stuff here, but what you'll see
+
+is a window that looks more or less like this.
+
+So you'll have your runner, import
+
+and a few buttons up here.
+
+You'll have a team library which will not be accessible,
+
+and also you'll have your stuff up here.
+
+You'll have to sign up to get here first,
+
+but that's sort of a given with any application these days.
+
+Then what I want you to do is create
+
+a new folder here, and I've called it REST API course,
+
+but you can call it whatever you want.
+
+Your collection, give it a nice name, it's usually better.
+
+Okay, and then in here, you can create folders
+
+I created a folder called section three
+
+because this is the section we're in.
+
+I would recommend you do that as well.
+
+It'll be very useful later on for you
+
+to have these collections to bring your memory back
+
+if you forget things.
+
+Then we're going to go over to the main sort of content.
+
+This API testing tool let's us make requests
+
+and as you can see the first button here is get.
+
+We can change that and we can use any
+
+of the other available HTTP verbs, GET, POST,
+
+but also, PUT, PATCH, DELETE, COPY, HEAD, OPTIONS,
+
+and many more.
+
+In this API we've only used GET and POST,
+
+we will use others as the course progresses.
+
+Then we have to enter the request URL,
+
+so that's gonna be HTTP://107.0.0.1:5000/store.
+
+Once again, this is your local computer
+
+this is the port that you're running on
+
+and this is the endpoint we're accessing.
+
+Then you've got a blue button called Send.
+
+Don't know why I said green there.
+
+A blue button called Send and when you press that
+
+that will execute the request, do make sure, however,
+
+to have your server running, so I'm gonna make sure
+
+that it is running, that's the latest version
+
+and then you can press Send.
+
+And what you get back is your API content.
+
+So exactly as we would expect.
+
+Once that's done you can also press Save
+
+to remember this request, normally I save my requests
+
+just as the endpoint name, and save it
+
+to the appropriate collection and press save.
+
+Now you've got it here, and you can easily
+
+go back to it at any point.
+
+Now what I would recommend you do now
+
+is to press the three buttons here, the three dots,
+
+and press Duplicate, then make sure
+
+to go into that endpoint.
+
+If you then go and change this one and then you press save,
+
+it will be over written and you will lose
+
+the other endpoint, so just make sure
+
+to keep duplicating these endpoints as you go along.
+
+This endpoint we're going to call /store/My Wonderful Store.
+
+Which, as you remember, is what we've got
+
+in our stores list as our first store.
+
+So let's press Send.
+
+And as you can see we get back the data
+
+that we would expect from this store.
+
+So that's really great, we can see that it is working.
+
+Once again, press Save to make sure
+
+that this endpoint is saved and then you can,
+
+once again. press the three buttons,
+
+the three dots, and press Edit
+
+and give this a nicer name, such as /store/name.
+
+Then go ahead and duplicate that.
+
+Go over to the new store and for example,
+
+we can access item, we can see
+
+that we get the items for this store back.
+
+Once again press Save, edit this one,
+
+give it an appropriate name and that's that.
+
+Now we have created our three GET requests
+
+and these are not really the problem.
+
+These are just really accessing a URL
+
+and then we get some data back.
+
+Now, the more interesting bit is when it comes to creating.
+
+So let's duplicate the GET store, go over to that endpoint
+
+and change the GET to POST.
+
+Now when we run this, we will get an error.
+
+As you can see this is an internal server error
+
+because we have not sent it the data that it expects.
+
+We have to send it some JSON data, and using JavaScript
+
+that's slightly more complicated and out of
+
+the scope of this course but using Postman it's really easy.
+
+Remember to save your endpoint first.
+
+Change the name to it's more reasonable.
+
+Let's go over to the headers and a header of a request
+
+is the first thing that gets analysed by the server.
+
+So the first thing that flask is going to do
+
+when it receives a request, it is gonna look
+
+at the headers to try and understand
+
+sort of what this request is.
+
+In the headers we can say things like
+
+what sort of data, what type of data we're sending.
+
+So this is a set of key value pairs and the first header
+
+is going to be Content-Type and the value
+
+is going to be application/json.
+
+Now, when we send a request with this header
+
+the server is going to be expecting JSON code
+
+to be in the body.
+
+So we're going to go to the body
+
+and we're going to select raw.
+
+Notice how because we've got a header, Postman automatically
+
+selects JSON from this drop-down list.
+
+But there are many other types of data we can send.
+
+We're also going to look in the future
+
+at what form data and what x-www-form-urlencoded are.
+
+But, don't worry about those for now.
+
+In the body, because we're creating a store
+
+the only thing we need is the store name.
+
+So remember, JSON always uses double quotation marks,
+
+so that's "name": "Another store"
+
+and this is all the data we need in our body.
+
+So let's see of this and press Send.
+
+And there you can see we get the
+
+new store returned as you would expect.
+
+Let's go and look at our code.
+
+And the new store dictionary returns
+
+a new store with a new name and an empty items list.
+
+We append that to the stores and then
+
+we return the new store.
+
+And that's indeed what we've got here.
+
+Remember to save the request then go to your GET store
+
+and when you press Send should we be expecting
+
+the new store to come out?
+
+Yes we should, and indeed we have here our stores list
+
+and there have the first store and the second store.
+
+Now let's go over to our last endpoint.
+
+Duplicate the GET store name item
+
+and I'm going to change it to a post
+
+I'm gonna save it, edit the name,
+
+and then we are once again
+
+gonna do the same thing.
+
+So what's the first thing we have to do?
+
+That's right, set the header
+
+to be content-type application/json
+
+and then the body to be raw.
+
+And here we're going to set the name of the item
+
+to be another item, price, and this
+
+is going to be a decimal so just 10.99.
+
+Save and Send, and we get an internal server error
+
+so we've evidently done something wrong.
+
+So what to do now is go over to the terminal,
+
+look at the errors and we've made a small error
+
+somewhere in the pass so this is the trace back,
+
+it's a lot longer than it used to be.
+
+At the very bottom, we see the error name.
+
+NameError: is the name, 'request data' is not defined.
+
+Directly above the error, we see
+
+the line of our code that went wrong.
+
+This is the file app.py line 51
+
+and we see request_data equal equal request.get_json.
+
+Do you spot the error there?
+
+It's easy to make small typos while recording
+
+but nevertheless is gonna be very useful
+
+the problem is that equal equal is used for comparison
+
+such as here, whereas a single equal is used for assignment.
+
+So that was the small error there,
+
+make sure to restart your server,
+
+and then run Postman again.
+
+And there we get our other item.
+
+Something to remember though, we've restarted the server
+
+so when we get our list of stores,
+
+what do you think is gonna come out?
+
+Our two stores or one store?
+
+And this is the problem, we're only gonna get
+
+one store back because whenever we restart the server
+
+we lose the applications memory,
+
+and therefore the stores variable gets deleted.
+
+When we start the server again,
+
+the stores variable gets set to this list again,
+
+which only has one store.
+
+Obviously the solution to that is
+
+to store things permanently in a database or in a file.
+
+Over the next few sections, we are going to look
+
+into how to store things into a database.
+
+That seems fairly useful for a REST API
+
+to be able to do, so we're going to look
+
+into SQLAlchemy to easily and efficiently store
+
+our resources such as our stores
+
+and our items to a database.
+
+So this is Postman.
+
+Postman is extremely useful for testing API's
+
+I cannot stress that enough, I use this thing everyday
+
+at work and I know most people do as well.
+
+It's because it just let's you have
+
+all your API endpoint's here and whenever you
+
+make a change to one of them, or whenever you want
+
+to verify that something works the way you expect,
+
+you just go in here and run the endpoint.
+
+Then you can check that the data returned is correct,
+
+the thing is coming back as opposed to giving you an error
+
+and things like that, so it's really essential
+
+that whenever you're creating REST API's
+
+you keep all your endpoints here so you
+
+can test them as you go along.
+
+That's everything for this video.
+
+Hopefully you learned something about
+
+how software developers work professionally
+
+with REST API's and I'll see you in the very next one.
+
+66
+
+- Hi, congratulations on finishing this section on Flask.
+
+Hopefully it served to raise some understanding
+
+on how the web, and Flask, and Python work together.
+
+Understanding the web and these building blocks
+
+is really important to understanding REST APIs.
+
+Remember, a REST API is going to be an interface
+
+between your programme and other programmes that call your API.
+
+Understanding the building blocks, therefore,
+
+is going to be essential for you to understand
+
+how other programmes interact with your API.
+
+In this section, we looked at Flask, and in the next one,
+
+we're going to be looking at creating real performing
+
+and complying REST APIs with Flask
+
+and also a popular extension.
+
+I'll see you in the very next section.
