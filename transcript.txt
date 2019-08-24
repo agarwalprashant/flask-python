@@ -514,3 +514,409 @@ So hopefully all that's okay,
 and I'll see you in the very next video.
 
 59
+
+- [Instructor] Hi and welcome back to the course.
+
+In this video we're going to look at HTTP Verbs.
+
+HTTP is one of the most popular protocols,
+
+one of the most popular ways of creating
+
+interactions and allowing interactions
+
+between two internet connected elements
+
+such as your computer and another computer.
+
+The first thing we wanna look at is what is a web server?
+
+This course is all about creating web servers, so I think
+
+that kinda gives you a bit of a hint.
+
+Now, a web server has many definitions.
+
+One of them is it's a piece of hardware
+
+like a computer is.
+
+Another definition is that it is a piece of software
+
+and this piece of software is designed to accept
+
+incoming web requests.
+
+Now, if this sounds like Chinese which I hope it doesn't,
+
+it doesn't sound completely foreign.
+
+Let's have a look at what web requests are as well.
+
+But first, a quick example.
+
+Google has many web servers.
+
+And whenever we go to http://www.google.com
+
+in our browser, such as Google Chrome or Safari,
+
+what we're doing is we're sending something
+
+to one of their web servers.
+
+We don't know which web server, but we know it's
+
+one of them.
+
+And when we send something to the web server
+
+the web server can then decide to respond back.
+
+It may not respond, as we'll see in a moment.
+
+So, what is it that we send to these web servers?
+
+Well, when we go to http://www.google.com
+
+we send exactly the following, this is what
+
+the web server sees.
+
+So, when a user such as ourselves, accesses
+
+the Google home page one of their servers somewhere
+
+receives this piece of information.
+
+Get/http/1.1, and the host is www.google.com.
+
+So, what does this mean?
+
+Well, this is what's called the get request
+
+and the server just sees that, get/http/1.1
+
+and the host name which is not here.
+
+So, the get is called a verb.
+
+It tells the server to some extent, what we think
+
+the server is going to return.
+
+So, what is expected of the server.
+
+The slash is the path, which is what we want
+
+out of the server.
+
+Finally, http/1.1 is the protocol and this is
+
+the most popular http protocol, but now
+
+we're also experimenting with http/2 as well
+
+which is a faster and more efficient version.
+
+So, this is really all the server sees
+
+and when we create our own web server applications
+
+we're going to see something very similar.
+
+So, what?
+
+Is that everything?
+
+Well actually, yeah.
+
+That's all the server sees
+
+and the server sees that and then there's some code
+
+and the code is what the server runs on and that allows
+
+it to make a decision as to what it's going to respond with.
+
+So, different servers may interpret the get request
+
+in many different ways and they'll respond differently.
+
+For example, the server may give you an error
+
+if the path is not found.
+
+In this case the forward slash.
+
+It may give you an error if http is not supported.
+
+For example, if it's a mail server and only supports
+
+SMTP, or if it's an FDP server and so on.
+
+It may give you an error if a server
+
+is currently unavailable.
+
+But, it may not also give you errors, it may also give you
+
+useful stuff such as a HTML code, which is
+
+what it normally does at least in Google's case.
+
+It may also give you some text.
+
+It may give you nothing if the server is not configured
+
+to give you anything, then it just won't
+
+give you anything back.
+
+So, what else?
+
+Well, going to any page with your browser such as Chrome
+
+or Safari or Firefox will always do the same.
+
+It's always going to do a get request.
+
+So, here's a couple examples.
+
+For example, going to the login on Twitter page
+
+which is https://twitter.com/login.
+
+That performs the get request get/login.
+
+Ad you can see, up to the .com is the host name
+
+and anything after that is the path,
+
+what we are requesting.
+
+So, in this case, the host is https://twitter.com
+
+and the path is /login, which is what comes after.
+
+Similarly for this other page, we are requesting
+
+/download/mac and you can see that Google Chrome
+
+has a nice colour and it tells us what the different
+
+parts are just by looking at the colour of it.
+
+A lot of browers don't do the same, which is
+
+a bit of a shame.
+
+And finally, google.co.uk, the host is
+
+https://www.google.co.uk and the path
+
+in this case is just the forward slash.
+
+By now you may have realised that the forward slash
+
+is the root, the sort of home page if you wish.
+
+And so, when we just go to a page that normally
+
+just requests the home page and then normally
+
+there's just a forward slash.
+
+So, the differences between these three servers
+
+aren't just on what the server responds with.
+
+Every server sees it, essentially identical requests
+
+requesting different paths granted.
+
+But, the only difference is what the server
+
+responds with and in Twitter's case they respond with
+
+the Twitter login HTML page and the
+
+get scm case they respond with the get scm
+
+downloads for Mac HTML page and in Google's case
+
+they respond with the main Google home page
+
+which seems fairly obvious, but really when we create
+
+our own web servers that's, we're gonna see exactly
+
+the same as they do, but we're gonna respond
+
+with slightly different HTML code.
+
+So, what I want you to realise is there's
+
+no magic going on here.
+
+All the server is seeing is the piece of data coming in
+
+and then it's responding with another piece of data
+
+and these servers all work in the same way.
+
+So, what else?
+
+Well, going to a web page will always do a get request.
+
+No matter where you go, the server's always gonna see
+
+the same thing.
+
+That's because the browser, such as Chrome or Safari
+
+is configured to do a get request whenever it accesses
+
+a page, but there's also many other things
+
+that we can do such as, host instead of get.
+
+We can do delete, we can do put, options, head
+
+and there's many more actually.
+
+And once again, this is just a piece of data
+
+that we're sending the server and the server
+
+then can respond differently to each,
+
+but they normally have the same meaning
+
+for each server.
+
+So, all servers will respond to a post request
+
+in similar ways.
+
+All servers will respond with delete requests
+
+in similar ways.
+
+In the same way that all servers respond to a get request
+
+in a similar way.
+
+That's because these things are so widely used
+
+that they have nearly become a standard now.
+
+So, the crux of this lesson is the HTTP Verbs.
+
+So, here's what they normally mean, which doesn't mean
+
+that they will always mean this, but it does mean
+
+that this is a fairly common meaning.
+
+So, for the get normally means to retrieve something.
+
+For example, when you go to the Google home page
+
+you're retrieving the Google home page.
+
+In the case of an API you may do something like
+
+get/item/1 and that presumably retrieves
+
+an item identified by 1.
+
+So, one may be the item's ID or something like that.
+
+You nay do a post, which for the server means
+
+receive data and use it, doesn't really tell you how
+
+it's gonna use it, but presumably if you do post/item
+
+that may create a new item see.
+
+Also, when you do a post request normally
+
+you have to send some data along the post request.
+
+We're gonna look at how to do that
+
+and basically in this case may be a piece of Jason
+
+which is name and prize and then presumably
+
+the server would create an item called
+
+chair with price 9.99, presumably
+
+and we don't know unless we look at the code.
+
+A put request means, make sure that something is there.
+
+Notice how it doesn't say create things
+
+or do anything, it just makes sure that something is there.
+
+So if you do put/item with some data again,
+
+that may create a new chain to make sure
+
+that the chair exists.
+
+Or, if the chair's already there, it may update
+
+the chair, change the price.
+
+Again, to make sure whether that item is there,
+
+but unless the put request allows for duplication
+
+then that's what it'll do.
+
+First it'll create it and then will update it.
+
+And finally, we can also do delete, which tends
+
+to mean remove something such as delete/item/1
+
+and presumably that would delete the item
+
+with ID number one.
+
+Now, we've looked at four of the most important
+
+HTTP Verbs, but there are many others and we
+
+won't be looking at those in this course,
+
+but nevertheless, it's worth knowing
+
+that there are other types of HTTP Verbs
+
+that we can use.
+
+So, that's everything for this video.
+
+I wanted to introduce you to the concept of the way
+
+the web works and how these HTTP Verbs behave
+
+because in the next video we're gonna look
+
+at HTTP, sorry, at rest APIs and these verbs
+
+are gonna come in really handy there.
+
+So, without further adieu, I'll see you
+
+in the very next video.
+
+60
+
+
