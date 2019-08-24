@@ -1,432 +1,355 @@
-# - [Instructor] Hi, and welcome back.
+# - [Narrator] Hi, and welcome back to the course.
 
-# In this video, we're going to create
+# Remember our simple Flask application?
 
-# our first flask application.
+# Now, we're going to extend that to show the endpoints
 
-# Flask applications are built around requests and responses.
+# that we looked at in the very last presentation.
 
-# Now, we're going to look very in detail
+# We're going to simulate an online store using Flask.
 
-# at what requests and responses are
+# There were a couple of things that we discussed.
 
-# and how the web works in the next couple of videos.
+# Net post was used to receive data,
 
-# But I want to give you a quick introduction (pause) now.
+# and the get was used to, essentially, send data back only.
 
-# Apologies for that.
+# Remember, from the browser's perspective,
 
-# A request is what your browser does.
+# this is the opposite.
 
-# So, for example, safari,
+# The browser will use post to send us data.
 
-# or google chrome, or internet explorer.
+# And it will use get to receive data.
 
-# Whenever you go to a website, you're making a request.
+# But here, we are not a browser, we are a server.
 
-# And there is a computer somewhere on the internet
+# So, when we receive a post request,
 
-# that is receiving that request.
+# that means we are receiving some data,
 
-# And that computer has something
+# and therefore we have to deal with it.
 
-# like a flask application in it.
+# And when we receive a get request,
 
-# So that flask application receives that request
+# that means that we have to send data back.
 
-# from your browser, and then decides what to do with it,
+# For example, when we receive post store,
 
-# and then returns back a response.
+# and that means that we have to probably create a store.
 
-# For example, one request may be
+# We may receive get store, and that means
 
-# to ask for a certain page's home page.
+# we have to send back a list of stores.
 
-# Another request may be to ask
+# So, the endpoints that we're gonna create
 
-# for something called hello.html for an html file.
+# are post for store, and this is,
 
-# Another request may be to ask
+# the data that we're gonna receive is a name.
 
-# for user number three, for example.
+# We're gonna create get of store,
 
-# So requests can be really anything.
+# slash string name.
 
-# But the server, the flask application,
+# Get for stores, we're gonna create post
 
-# has to be created to be able to understand those requests.
+# for a store string, oh, apologies,
 
-# So that's the key here.
+# string name item.
 
-# In order to start with our flask application,
+# And also get for store string name item.
 
-# the first thing we have to do
+# So, what these endpoints are gonna do
 
-# is to tell python that we want to use flask.
+# is, the first one is gonna create a new store
 
-# That kind of makes sense.
+# with a given name.
 
-# So the first thing to do is to say from flask, lowercase f,
+# The second one is going to get a store for a given name,
 
-# import Flask, with an uppercase F.
+# and it's gonna return some data about it.
 
-# Also let's use this opportunity to save this as app.py.
+# The third one is going to return a list of all the stores.
 
-# Once again, you can call this whatever you want,
+# The fourth one is going to create an item
 
-# but normally flask applications are called app.py.
+# inside a specific store, with a given name.
 
-# And we will look at why in a few video's time, really.
+# And the last one is gonna get all the items
 
-# Now that we've imported flask,
+# in a specific store.
 
-# we've imported something called Flask with a capital F
+# This one will also have a name and a price, for example.
 
-# from a package called flask with a lowercase f.
+# OK.
 
-# You may not have noticed, but classes in python,
+# So, I'll create an example of a post request
 
-# such as our student and our working student classes
+# and a get request for you,
 
-# from last section, classes always start with a capital F.
+# and then we, I'll expect you to create the rest.
 
-# And packages always start with a lowercase f,
+# So, for the first port request.
 
-# although we've not really seen this in practise.
+# Well, we know how to create an endpoint.
 
-# We can therefore safely assume that Flask
+# It is @app.root, and here, before we put a forward slash,
 
-# with a capital F is a class.
+# that was the root of our application, the home page,
 
-# And indeed it is.
+# now we wanna put it as slash store,
 
-# So the first thing we want to do
+# because that is what this endpoint is.
 
-# is create an app from that Flask class.
+# Therefore, our browser, or our web application,
 
-# So we're going to say app equals flask.
+# or our m, whoever is really calling our API
 
-# And here comes something a bit newer,
+# is going to call this endpoint.
 
-# which is underscore underscore name, underscore underscore.
+# However, it has to be a post.
 
-# So that's two underscores in front and two behind.
+# By default, when you use app.route,
 
-# And the underscore underscore name, underscore underscore
+# that is a get request.
 
-# is a special python variable.
+# And browsers, by default, only do get requests.
 
-# It essentially gives each file a unique name.
+# So, we're gonna need to say comma methods equal post.
 
-# And that's really all that we have to worry about.
+# So, this defines our route as being slash store,
 
-# So when we start the Flask application,
+# and as being accessible only via a post request.
 
-# in order for Flask to know that this application
+# If we want it to be accessible via a get request, as well,
 
-# is running in a specific unique place,
+# then we could do post and get.
 
-# we tell it this underscore underscore name
+# So then, this endpoint could be called
 
-# underscore underscore.
+# either via post or via get.
 
-# Don't worry much about it.
+# We will look at how that works later on in the course.
 
-# Then, the first thing we have to say
+# Then, we have to associate a method with it.
 
-# is to tell our app what requests it's going to understand.
+# And in this case, I'm gonna call the method create store.
 
-# Remember, earlier I said that sometimes
+# And it's not going to do anything for now,
 
-# you may request the homepage of an application.
+# but we will make it do stuff later on.
 
-# Other times you may request something like a hello.html.
+# To get the store, well, fairy simple.
 
-# Other times you may request the third user,
+# I'm sure you can do it yourself.
 
-# or things like that.
+# So, if you think you can, pause the video now
 
-# So we have to tell our app exactly
+# and give it a go.
 
-# what request it will understand.
+# And if not, just keep watching and I will implement it here.
 
-# And it can understand many requests, of course,
+# To get a store, we'll have app.route slash store,
 
-# but we're going to start with just one.
+# slash string name.
 
-# In order to do that, we're going to use a decorator.
+# This is a special Flask bit of syntax,
 
-# So now we know what those are.
+# which means that when we get store,
 
-# It's going to say @app.route and here is going to go
+# when we create our method,
 
-# the route or the endpoint or the request
+# our method can have a parameter, which is name.
 
-# that it is going to understand.
+# This name here has to match this one here.
 
-# In our case, it is going to be a forward slash
+# And therefore, when we receive a request
 
-# within a string.
+# such as an http://107.0.0.1/5000/store/some_name,
 
-# And what this means is,
+# some name is going to be this name here.
 
-# for example, http://www.google.com/.
+# So, the name variable will contain some name.
 
-# So when you access a webpage such as google.com,
+# If we have a store that has that name,
 
-# really what you're accessing is google.com/.
+# we're gonna be able to return it, using that as a key.
 
-# And the forward slash there just means
+# OK.
 
-# this is the homepage of the site.
+# So, this is also going to pass.
 
-# You can also do things like google.com/maps, I think.
+# And then, you know, this is just going to apply
 
-# And this would be a separate route.
+# for, really, the rest of them.
 
-# You can do google.com/plus, I think.
+# And this one is only store, so it doesn't
 
-# I'm not really familiar with google's end points.
+# need the string name.
 
-# But this would be a separate end point, slash plus.
+# And also, it's not gonna have a parameter.
 
-# Because they are supposed to do different things
+# For the post, we're going to copy this one here,
 
-# in a server.
+# and it's gonna have string name slash item.
 
-# So if you leave it just as a forward slash,
+# Make sure to not forget any of these little bit
 
-# that is the home page of the application.
+# of syntax there, because that can be quite confusing
 
-# And as we know, a decorator always has to act on a method,
+# for Flask if you do that.
 
-# so what's going to come after is going to be a method.
+# And finally, we're going to have something like this,
 
-# In this case I'm calling the method home.
+# down here.
 
-# But the name of the method in Flask does not matter,
+# Remember to change the method names, as well,
 
-# so you can call it whatever you want.
+# because they have to be unique.
 
-# All that matters is this route.
+# So, I'm gonna call this method get item store,
 
-# So now we've got our home method,
+# because that's essentially what this is going to do.
 
-# we can make it do things.
+# This is going to retrieve all the items
 
-# And whatever it does,
+# in a specific store.
 
-# it has to return a response back to our browser
+# For this one, it's going to be create item in store.
 
-# so that our browser receives something back
+# For this one, it is gonna get stores,
 
-# and it can show something on the website.
+# and this one is gonna be get store.
 
-# So for example, we're going to return "Hello, world!".
+# This one is gonna be create store.
 
-# So what's going to happen now
+# So, these are our endpoints.
 
-# is that when we access our end point with our browser,
+# So, we've got our five endpoints now,
 
-# what we should see is "Hello, world!" coming back.
+# as we discussed in the last presentation.
 
-# And then we also, of course, have to tell the app
+# And all we have to do now is really implement them.
 
-# to start running.
+# So, how do we implement them?
 
-# So let's do that, app.run.
+# Well, we, first of all, need a way to store our stores.
 
-# And here we can tell it a specific port.
+# So, that can be, for example, something like a list.
 
-# A port is just a sort of area of the computer
+# And our stores can be an empty list initially,
 
-# where your app is going to be receiving your requests
+# and then it can have a dictionary in it,
 
-# and returning your responses through.
+# and the dictionary is gonna have a name,
 
-# Computers have many of these areas,
+# and the name's gonna be, for example,
 
-# and in my case I'm going to use port 5000.
+# My Wonderful Store.
 
-# If you do receive an error when you run the app,
+# And there's also gonna have a list of items,
 
-# saying address already in use,
+# and each item is going to have a name,
 
-# that's because some other application in your computer
+# such as My Item and a price, such as 15.99.
 
-# is already using this port.
+# OK.
 
-# So all you have to do is just change it
+# So, hopefully this makes sense.
 
-# for something else, like 4999, for example.
+# I'm just gonna clean this up a bit for you,
 
-# Okay, once that's done, let's go into the terminal.
+# so it's a bit easier to understand or to know.
 
-# I'm going to clear this.
+# OK.
 
-# And making sure that you are in the correct folder,
+# So, our store's list is going to contain a list
 
-# which in my case, I don't think I am,
+# of dictionaries.
 
-# so I'm going to go in it,
+# So, here we've got one dictionary, but we could have many.
 
-# code, section three, video code.
+# Each dictionary has a name, such as our stores do,
 
-# Making sure you're in the correct folder,
+# and the name, in this case, is My Wonderful Store.
 
-# then do python3.5 app.py.
+# And it also has a list of items.
 
-# And what you should see is something like this.
+# And in this case, items is a list.
 
-# Running on and here is the interesting part,
+# So, we can have many other dictionaries in here,
 
-# http://127.0.0.1:5000/,
+# and each dictionary is going to have a name
 
-# and the forward slash is important
+# and a price.
 
-# because that's the home page of our app.
+# We could do this with object oriented programming,
 
-# The 5000, as you can imagine,
+# if we wanted, and we're gonna explore
 
-# is the port that we've selected,
+# how to do that later on, of course.
 
-# and 127.0.0.1, for those of you who are
+# And also, normally, we would be storing these things
 
-# experienced programmers, you'll know what that is,
+# to a database, but in order to simplify things
 
-# but for those of you that don't,
+# and just teach you the basics of RS API,
 
-# that is your computer.
+# we're gonna stick to having a dictionary here, in memory.
 
-# So 127.0.0.1 is a special IP address
+# So, hopefully that's all right.
 
-# that is reserved for your computer, specifically.
+# And in the next video, we're going to look
 
-# So whenever you access this address in your browser,
+# into implementing these endpoints.
 
-# what you're accessing is your own computer.
+# So, I'll see you there.
 
-# Because we're accessing using http,
 
-# that means that our browser is able to access this page.
-
-# So just copy that and go into chrome, for example.
-
-# And then let's paste it in.
-
-# And what we see is "Hello world!" coming back
-
-# because that's what our end point returns.
-
-# Notice how google chrome strips
-
-# the trailing slash from the end.
-
-# But that's always present there,
-
-# and some other browsers will not remove it.
-
-# So just because google chrome removes it,
-
-# doesn't mean we're not accessing the home page.
-
-# And that's our hello, world.
-
-# And this was your first flask application.
-
-# And you've managed to create an end point
-
-# that returns some data.
-
-# So going back to atom, all that we've done
-
-# is imported Flask, created an object of Flask
-
-# using a unique name, and then created a route,
-
-# which was for the home page of our application,
-
-# just the forward slash,
-
-# assigned a method to it, which has to return something,
-
-# and whatever it returns will go to the browser.
-
-# And finally we've ran the app.
-
-# Of course, these methods don't have
-
-# to return strings only.
-
-# That would be quite boring.
-
-# But normally in rest API's they do return strings,
-
-# and it is a Javascript application
-
-# that deals with displaying things nicely.
-
-# Flask can also display things nicely if we want,
-
-# but that's not the purpose of this course.
-
-# There is many, not many,
-
-# but there are a couple other courses, one of them mine,
-
-# that deals with creating web sites and web apps with Flask.
-
-# This course is concerned with rest APIs.
-
-# And rest APIs usually return text in a specific format.
-
-# So we're going to be looking at more of that
-
-# in the next coming sections.
-
-# But in this section we are going to give you a bit
-
-# of insight into how you might use a rest API
-
-# from within a Javascript application.
-
-# For those of you that are interested
-
-# in using your API from within Javascript,
-
-# that will be very useful.
-
-# So the next couple of videos are going to be
-
-# more about how the web works,
-
-# how rest works, and things like that.
-
-# And then we'll move on to creating
-
-# the Javascript programme that will use this API
-
-# just for your convenience.
-
-# So hopefully all that's okay,
-
-# and I'll see you in the very next video.
 
 from flask import Flask
 app = Flask(__name__)
 
-# So we have to tell our app exactly
+stores = [
+  {
+    'name':'My wonderfull store',
+    'items':[
+      {
+        'item': 'my item',
+        'price':15.99
+      }
+    ]
+  }
+  ]
 
-# what request it will understand.
+# POST - used to receive data
+# GET  - used to send data back only
 
-# And it can understand many requests, of course,
 
-# but we're going to start with just one.
+# POST /store data: {name:}
+@app.route('/store',methods=['POST'])
+def create_store():
+  pass
 
-# In order to do that, we're going to use a decorator.
-@app.route("/")  # http://www.google.com/
-def home():
-    return "Hello, Flask!"
+# get /store/<string:name>
+@app.route('/store/<string:name>') # https://127.0.0.1:5000/store/some_name
+def get_store(name):
+  pass
 
+# get /store
+@app.route('/store') 
+def get_stores(name):
+  pass
+
+# post /store/<string:name>/item {name:,price:}
+@app.route('/store',methods=['POST'])
+def create_item_in_store():
+  pass
+
+# get /store/<string:name>/item
+@app.route('/store/<string:name>/item') 
+def get_items_in_store(name):
+  pass
 
 app.run(port=5000)
