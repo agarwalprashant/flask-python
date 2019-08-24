@@ -919,4 +919,344 @@ in the very next video.
 
 60
 
+- [Instructor] Hi and welcome back to the course.
+
+In this video we're going to look at REST principles
+
+and this is really important.
+
+This lecture may be slightly confusing
+
+and it's slightly abstract,
+
+and please do ask questions at any point
+
+if you have any questions at all.
+
+Let's look at what we know now about HTTP.
+
+Going to a site performs a GET request
+
+and this normally returns HTML,
+
+but it may return other things,
+
+such as text for example or errors,
+
+and also we can do things other than GET.
+
+We can do POST for example.
+
+Okay, so this is what we know already.
+
+Now let's look at what a REST API is.
+
+A REST API uses those same concepts that we've looked at
+
+GET, POST, and so on
+
+so there's no technical things going on in a REST API.
+
+All that at REST API is or rather all that REST is
+
+is a way of thinking
+
+about how a web server responds to your requests
+
+and how a web server behaves in general.
+
+It doesn't respond with just data.
+
+It responds with something called resources.
+
+Now a resource is essentially just data,
+
+but it's a shift in the way of thinking.
+
+So we must stop thinking about
+
+we ask the server something
+
+and the server responds with data
+
+and now we have to start thinking about
+
+we are asking for a resource, for a thing in the server.
+
+It's very similar to object-oriented programming.
+
+So we can think of the server as having resources
+
+and each resource is able to interact
+
+with the pertinent request.
+
+We're going to look at what the pertinent request is now.
+
+So let's say we have this GET
+
+endpoint, our server has been programmed
+
+to be able to receive this
+
+GET request/item/chair.
+
+It also has been programmed to
+
+receive this POST request/item/chair
+
+with some extra data
+
+and such as to create a new chair for example.
+
+It also has been programmed to accept this request
+
+PUT/item/chair presumably also with some extra data
+
+so it can create or update the chair,
+
+and also it can deal with the DELETE/item/chair.
+
+As you can see all of these four requests
+
+have the same endpoint /item/chair.
+
+That's because they are all accessing the same resource.
+
+The chair element of the item resource.
+
+So this could be the item resource,
+
+and whenever we interact with an item
+
+we know that the endpoint is going to be the same.
+
+Now we can start thinking of
+
+our interactions with the server
+
+as not individual requests, but resources,
+
+and now we can do things like GET a resource
+
+or POST something to the resource
+
+or create a resource, delete a resource and so on.
+
+Which simplifies the way of thinking,
+
+simplifies the thought process behind these interactions,
+
+because now instead of dealing with just
+
+individual endpoints
+
+we're dealing with something a bit larger.
+
+So once again, similar to object-oriented programming.
+
+In object-oriented programming objects
+
+are just things that hold some data
+
+and then some more data in the form of methods
+
+and they have a name
+
+and here it's really a similar thing.
+
+Another endpoint may be GET/items,
+
+and that we can probably see the similarity.
+
+Items and item probably fairly related,
+
+but it's a different endpoint
+
+and we're no longer retrieving an individual resource,
+
+/items probably means we're retrieving multiple items,
+
+therefore, it cannot be the item resource.
+
+It must be something like an item list resource for example.
+
+In this section we're going to look at creating these too
+
+programmatically.
+
+Another key feature of REST
+
+is that it is stateless
+
+or it is supposed to be stateless.
+
+Now stateless is always really confusing initially.
+
+But all that it means is that one request
+
+cannot depend on any other requests.
+
+And again this may be confusing.
+
+As we programme this will make more sense.
+
+So the server only knows about the current request
+
+and not about any previous requests.
+
+Let me give you a couple examples.
+
+For our first example image we create a
+
+chair item.
+
+We create a request that is POST/item/chair
+
+and presumably that creates a chair.
+
+The server doesn't know the item now exists.
+
+It has created it, it has put it in a database,
+
+and then its forgot about it because its
+
+sent us a response back, it said
+
+item created for example,
+
+and then it's forgotten that the items exists,
+
+but it is in the database.
+
+When we do GET/item/chair
+
+the server cannot say okay this exists.
+
+It has to go to the database,
+
+check to see if it exists,
+
+and then return the item to us
+
+if it does exist or an error otherwise.
+
+So as you can see this sort of makes sense,
+
+but the server doesn't know that the item exists
+
+it has to do the full check,
+
+go to the database and check it.
+
+So to GET an item
+
+you don't have to have created the item before.
+
+We could just do the GET request
+
+and then that would go to the database
+
+and see if the item is there.
+
+So it doesn't require the POST request
+
+to have happened before.
+
+Okay, so this is one example here's another example
+
+that is going to be really useful this section.
+
+Say a user logs into a web application, for example Twitter.
+
+When we do that the server responds with some data
+
+and that data is going to be really important.
+
+That data is going to be unique to this user.
+
+And once it does that the server doesn't know
+
+the user is logged in since it doesn't have any state.
+
+So what do we do?
+
+Well remember that piece of unique data
+
+the server returned when we logged in?
+
+The web application has to send that data
+
+every time it interacts with a server
+
+so that the server can see
+
+okay I sent this data earlier,
+
+this user is indeed logged in,
+
+because the data is unique.
+
+And that data had to be sent in every request
+
+or else the server won't be able to associate
+
+the request with the user.
+
+This authentication we're going to implement in this section
+
+and everything is going to make a lot more sense.
+
+So if this is confusing
+
+don't worry because it is always confusing initially.
+
+The first time I learned about REST
+
+I though what the hell is stateless
+
+and it didn't really make sense for a long time.
+
+So don't worry if it is confusing.
+
+As I said as we programme the APIs
+
+a lot of these things will make sense,
+
+because they just do
+
+so they'll come naturally to you,
+
+and always ask questions at anytime
+
+and I'm always available to help and guide you
+
+personally if you need anything.
+
+So don't doubt, go to the course Q&A
+
+and ask questions away if you need anything.
+
+So that's everything for this video we've looked at REST
+
+and what it means and essentially it means
+
+that we are now dealing with resources
+
+and we're dealing with
+
+stateless servers.
+
+So we're going to implement a REST API in this section.
+
+So I hope you enjoy that
+
+and that's it for this video
+
+so I'll see you on the next one.
+
+61
+
+
+
 
